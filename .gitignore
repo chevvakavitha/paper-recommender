@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+data/papers_embeddings.npy
+data/faiss_index.bin
+data/papers_processed.parquet
+models/
+.streamlit/
+.vscode/
+.DS_Store
+Thumbs.db
