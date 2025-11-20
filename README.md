@@ -1,109 +1,111 @@
-# 📚 Paper Recommender  
-*A semantic research paper recommendation system using vector embeddings, FAISS similarity search, and metadata filtering.*
+📚 Paper Recommender
 
----
+A semantic research paper recommendation system using transformer embeddings and FAISS vector search.
 
-## 🌟 Overview  
-The **Paper Recommender** system helps users discover research papers similar to their query or input document.  
+<p align="center"> <img src="https://img.shields.io/badge/Python-3.10+-blue?style=for-the-badge" /> <img src="https://img.shields.io/badge/FAISS-Vector_Search-orange?style=for-the-badge" /> <img src="https://img.shields.io/badge/Transformers-Embeddings-green?style=for-the-badge" /> <img src="https://img.shields.io/badge/Streamlit-UI-red?style=for-the-badge" /> </p>
+
+📑 Table of Contents
+Overview
+Features
+Project Structure
+Architecture
+Dataset
+Installation
+Usage
+Future Improvements
+Contact
+
+🌟 Overview
+The Paper Recommender helps users discover research papers based on semantic similarity rather than simple keywords.
 It uses:
+🧠 Sentence Transformer embeddings
+⚡ FAISS vector index for fast similarity search
+🗂 Metadata filtering (year, author, keywords)
+🏗 Modular & clean architecture
 
-- **Sentence Transformers** for generating embeddings  
-- **FAISS** for fast similarity search  
-- **Metadata filtering** (title, author, keyword, year)  
-- **Pre-computed embeddings** for instant recommendations  
-- A clean, maintainable, modular architecture  
+Ideal for:
+Students
+Researchers
+Literature review writers
+Anyone exploring academic content
 
-This project is useful for:  
-✔ Researchers  
-✔ Students  
-✔ Literature Review Authors  
-✔ Anyone working with large paper databases  
+🚀 Features
+🔍 Semantic Search
+Find meaningful similar papers using transformer-based sentence embeddings.
+⚡ FAISS Vector Index
+Fast KNN search over thousands of embeddings.
+🧠 Transformer Embeddings
+Uses models like:
+sentence-transformers/all-MiniLM-L6-v2
+🧱 Modular Architecture
+Separated into src/, data/, tools/, models/.
 
----
+🎛 Metadata Filters
+Filter by:
+Author
+Year
+Keywords
 
-## 🚀 Features
-
-### 🔍 Semantic Search  
-Uses dense vector embeddings for high-quality paper similarity.
-
-### ⚡ FAISS Index  
-Supports fast nearest-neighbor search even with large datasets.
-
-### 🧠 Transformer Embeddings  
-Uses models like: `sentence-transformers/all-MiniLM-L6-v2`.
-
-### 🗂 Metadata Filtering  
-Filter results based on author, year, keywords, etc.
-
-### 🧱 Modular Architecture  
-Separated into `src/`, `tools/`, `data/`, `app/`.
-
-_____________________
-
-## 🗂 Project Structure  
-
+🗂 Project Structure
 paper-recommender/
-│── app/ # UI app (Streamlit placeholder)
-│── assets/ # Images, diagrams, demo screenshots
-│── data/ # Ignored (datasets & embeddings)
-│── docs/ # Documentation, notes
-│── models/ # Model files (ignored)
-│── notebooks/ # Jupyter notebooks for EDA
-│── src/ # Core source code
-│ │── init.py
-│ │── app.py # Main application logic
-│ │── preprocess.py # Text cleaning, metadata extraction
-│ │── pdf_utils.py # PDF-to-text utilities
-│ │── embed_index.py # Embedding + FAISS index builder
-│ │── search.py # Search & recommendation logic
+│── app/                        # (Optional) Streamlit UI 
+│── assets/                     # Banner / screenshots
+│── data/                       # Ignored (large datasets)
+│── docs/                       # Additional documentation
+│── models/                     # Trained models (ignored)
+│── notebooks/                  # EDA & experimentation
+│── src/                        
+│   │── app.py                  # Core application logic
+│   │── preprocess.py           # Cleaning & normalization
+│   │── pdf_utils.py            # Optional PDF-to-text
+│   │── embed_index.py          # Build embeddings & FAISS index
+│   │── search.py               # Main search functions
 │── tools/
-│ │── test_search.py # Unit tests for search
-│── main.py # Project CLI entry point
-│── requirements.txt # Python dependencies
-│── README.md # Documentation
-│── .gitignore # Ignores data/, models/, venv, etc.
+│   │── test_search.py          # Unit tests
+│── main.py                     # CLI entry point
+│── requirements.txt            # Dependencies
+│── README.md                   # Documentation
+│── .gitignore                  # Ignoring large folders
 
-__________________
+🧠 Architecture
+                   ┌───────────────────────┐
+                   │     User Query        │
+                   └──────────┬────────────┘
+                              ↓
+                     Preprocessing Module
+                              ↓
+              Sentence Transformer Model
+                   (Embeddings Generation)
+                              ↓
+                       FAISS Index
+                 (Top-K Vector Search)
+                              ↓
+                  Metadata Filtering Layer
+                              ↓
+               Final Ranked Paper Results
 
-## 📥 Dataset  
-
-⚠️ The dataset was **not uploaded** because GitHub restricts files above **100 MB**.
-After downloading, place the files here:
+📥 Dataset
+⚠️ GitHub blocks files bigger than 100 MB, so the dataset is stored externally.
+After download, place the files in:
 paper-recommender/data/
-_______________
 
-## 🧠 System Architecture  
-User Query
-↓
-Preprocessing
-↓
-Sentence Transformer → Generate Embeddings
-↓
-FAISS Index → Find Similar Papers
-↓
-Metadata Filtering
-↓
-Top-K Recommended Papers
-______________
-## ▶️ How to Run the Project
-
-### 1️⃣ Create virtual environment
+🛠 Installation
+1️⃣ Create Virtual Environment
 python -m venv .venv
-2️⃣ Activate environment
-Windows:
+2️⃣ Activate Environment
+Windows
 .venv\Scripts\activate
-Mac/Linux:
+Mac/Linux
 source .venv/bin/activate
-3️⃣ Install dependencies
+3️⃣ Install Requirements
 pip install -r requirements.txt
-4️⃣ Run the main program
+▶️ Usage
+Run CLI version:
 python main.py
-5️⃣ (Optional) Launch Streamlit UI
+Run Streamlit UI (Optional):
 streamlit run app/streamlit_app.py
-______________
-📝 Example Usage
-python
-Copy code
+
+Minimal Python Example:
 from src.search import PaperSearch
 
 searcher = PaperSearch(
@@ -114,32 +116,22 @@ searcher = PaperSearch(
 
 results = searcher.get_similar_papers("neural networks for healthcare")
 print(results.head())
-_______________
-🛠 Technologies Used
-Python 3.10+
-Sentence Transformers
-FAISS
-Pandas / NumPy
-Scikit-learn
-Streamlit (optional UI)
-Parquet / CSV
-_________________
+
 📌 Future Improvements
-Full Streamlit dashboard with charts & explanations
-PDF upload → automatic embedding
-Add SHAP explanations for recommendations
-Deploy model as a cloud API (FastAPI)
-Topic modeling for enhanced filtering
-__________________
-🤝 Contributing
-Contributions are welcome!
-Please open an issue before major changes.
-__________________
+📄 PDF upload + automatic embedding
+🌐 Full Streamlit dashboard
+🔍 Add keyword extraction & topic modeling
+🧠 Explain recommendations using SHAP
+☁️ Deploy as FastAPI web service
+🧪 Add proper unit tests
+
 📬 Contact
+
 Cheva Kavitha
-📧 Email: kavithachevvakavitha@gmail.com
-🔗 LinkedIn: www.linkedin.com/in/cheva-kavitha
-__________________
-⭐ Support
-If you find this project useful, please give it a ⭐ star on GitHub.
+📧 Email:  kavithachevvakavitha@gmail.com
+🔗 LinkedIn:  www.linkedin.com/in/cheva-kavitha
+
+⭐ If you like this project, consider giving it a star on GitHub!
+
+
 
